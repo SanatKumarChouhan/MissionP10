@@ -11,6 +11,10 @@ import com.rays.common.BaseDTO;
 @Entity
 @Table(name = "st_user")
 public class UserDTO extends BaseDTO {
+	
+	public static final String ACTIVE = "Activate";
+	public static final String DEACTIVE = "deactivate";
+	public static final String LOCKED = "locked";
 
 	private String firstName;
 	private String lastName;
@@ -130,6 +134,8 @@ public class UserDTO extends BaseDTO {
 		this.imageId = imageId;
 	}
 
-	
+	public String getName() {
+		return firstName + " " + lastName;
+	}
 
 }
