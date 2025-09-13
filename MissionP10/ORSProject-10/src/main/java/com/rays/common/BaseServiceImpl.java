@@ -22,6 +22,14 @@ public class BaseServiceImpl<T extends BaseDTO, D extends BaseDAOInt<T>> impleme
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(T dto, UserContext userContext) throws DuplicateRecordException {
+		
+		T oldDto = baseDao.findByPK(dto.getId(), userContext);
+		
+		if (oldDto != null) {
+	        dto.setCreatedBy(oldDto.getCreatedBy());
+	        dto.setCreatedDateTime(oldDto.getCreatedDateTime());
+	    }
+		
 		baseDao.update(dto, userContext);
 	}
 
@@ -38,7 +46,7 @@ public class BaseServiceImpl<T extends BaseDTO, D extends BaseDAOInt<T>> impleme
 
 	@Transactional(readOnly = true)
 	public T findById(long id, UserContext userContext) {
-		T dto = baseDao.findByPk(id, userContext);
+		T dto = baseDao.findByPK(id, userContext);
 		return dto;
 	}
 
